@@ -12,15 +12,15 @@ def create_person_list(people: list) -> list:
     for person in people:
         obj = Person(person["name"], person["age"])
         partner = "wife" if "wife" in person else "husband"
-        obj.__setattr__(partner, person[partner])
+        setattr(obj, partner, person[partner])
         persons.append(obj)
 
     for person in persons:
         partner = "wife" if hasattr(person, "wife") else "husband"
-        key = person.__getattribute__(partner)
+        key = getattr(person, partner)
         if key is None:
-            person.__delattr__(partner)
+            delattr(person, partner)
         else:
             obj = Person.people[key]
-            person.__setattr__(partner, obj)
+            setattr(person, partner, obj)
     return persons
